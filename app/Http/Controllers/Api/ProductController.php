@@ -12,7 +12,7 @@ use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class ProductController
+class ProductController extends Controller
 {
     /**
      * TAMPILIN SEMUA PRODUK.
@@ -83,7 +83,7 @@ class ProductController
                 $validated = Validator::make($data, [
                     'title' => 'required|string|max:255',
                     'description' => 'required|string',
-                    'price' => 'required|integer|min:0|max:5',
+                    'price' => 'required|integer|min:0',
                     'category_id' => 'required|exists:product_categories,id',
                     'file_path' => 'required|string',
                     'status' => 'required|in:active,inactive',
