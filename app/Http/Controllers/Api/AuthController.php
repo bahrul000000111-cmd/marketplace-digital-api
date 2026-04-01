@@ -17,7 +17,7 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|min:8',
-            'role' => 'required|in:seller,buyer', // [cite: 36]
+            'role' => 'required|in:seller,buyer', 
         ]);
 
         if ($validator->fails()) {
@@ -31,7 +31,7 @@ class AuthController extends Controller
             'role' => $request->role,
         ]);
 
-        $token = $user->createToken('auth_token')->plainTextToken; // [cite: 37]
+        $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
             'success' => true,
@@ -49,7 +49,7 @@ class AuthController extends Controller
         }
 
         $user = User::where('email', $request->email)->firstOrFail();
-        $token = $user->createToken('auth_token')->plainTextToken; // [cite: 37]
+        $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
             'success' => true,
@@ -62,7 +62,7 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        $request->user()->currentAccessToken()->delete(); // [cite: 37]
+        $request->user()->currentAccessToken()->delete();
         return response()->json(['message' => 'Logged out']);
     }
 }
