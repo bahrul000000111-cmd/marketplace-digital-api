@@ -2,25 +2,28 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Database\Factories\UserFactory;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Attributes\Hidden;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\Product;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens; // 1. Tambahkan import ini 
+use App\Models\Product;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    // 2. Tambahkan HasApiTokens ke dalam trait yang digunakan
+    use HasApiTokens, HasFactory, Notifiable; 
 
     protected $fillable = [
         'name',
         'email',
         'password',
-        'role',
+        'role', // Role seller/buyer tetap di sini [cite: 36]
         'balance',
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
     ];
 
     // Relasi: satu user (seller) punya banyak produk
@@ -28,5 +31,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Product::class);
     }
-    
 }
