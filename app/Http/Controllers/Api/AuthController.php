@@ -11,13 +11,14 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+    // 1. Fungsi Register (Status 201)
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|min:8',
-            'role' => 'required|in:seller,buyer', 
+            'role' => 'required|in:seller,buyer',
         ]);
 
         if ($validator->fails()) {
@@ -42,10 +43,13 @@ class AuthController extends Controller
         ], 201);
     }
 
+    // 2. Fungsi Login (Status 200)
     public function login(Request $request)
     {
         if (!Auth::attempt($request->only('email', 'password'))) {
-            return response()->json(['message' => 'Unauthorized'], 401);
+            return response()->json([
+                'message' => 'Unauthorized'
+            ], 401);
         }
 
         $user = User::where('email', $request->email)->firstOrFail();
@@ -57,12 +61,15 @@ class AuthController extends Controller
                 'token' => $token,
                 'user' => $user
             ]
-        ]);
+        ], 200);
     }
 
+    // 3. Fungsi Logout (Status 200)
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
-        return response()->json(['message' => 'Logged out']);
+        return response()->json([
+            'message' => 'Logged out'
+        ], 200);
     }
 }
