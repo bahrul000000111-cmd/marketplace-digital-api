@@ -21,5 +21,4 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Hanya user (Seller) yang login bisa Create, Update, Delete 
     Route::apiResource('products', ProductController::class)->except(['index', 'show']);
-    Route::apiResource('categories', ProductCategoryController::class)->except(['index', 'show']);
 });

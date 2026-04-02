@@ -11,7 +11,7 @@ class Product extends Model
 
     protected $fillable = [
         'seller_id', 'category_id', 'title', 'description', 'price', 
-        'rating', 'thumbnail', 'file_path', 'download_count', 'status'
+        'rating', 'thumbnail', 'file_path', 'stock', 'download_count', 'status'
     ];
 
     // Relasi ke kategori
