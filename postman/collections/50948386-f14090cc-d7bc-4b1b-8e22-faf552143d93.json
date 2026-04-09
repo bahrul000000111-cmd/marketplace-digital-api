@@ -1,0 +1,532 @@
+{
+	"info": {
+		"_postman_id": "50948386-f14090cc-d7bc-4b1b-8e22-faf552143d93",
+		"name": "Marketplace API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"id": "50948386-5ad79f0e-2f07-4f22-bc49-87e98afa23ea",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Humaira\",\n    \"email\": \"mayraa@gmail.com\",\n    \"password\": \"password123\",\n    \"role\": \"buyer\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "beabdc84-7434-487f-9f58-a56ffdfb7c5b",
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.set(\"token\", jsonData.data.token);",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a0ffb152-1c0c-4313-b3d4-6d8f40e86a24",
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "50948386-afd43e19-e4b7-41a5-840f-cbf5aebfddcb",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"arinynur@gmail.com\",\n    \"password\": \"password123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "50948386-aa7ed2ec-8450-40d5-8ba5-e40db34bda6b"
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Tampilkan Semua Product",
+					"id": "50948386-7f89255c-cb6e-4ab0-ac0b-5f8e364f1199",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tampilkan Detail Product  Berdasarkan ID",
+					"id": "50948386-1b5384b9-ef57-495f-9b5b-2bf5318bc0b8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "7|sFeuV07NzFMUH8TxiOnNzXt0ykvRTrMLEtr6WqkI61b95c5b",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Laptop Gaming\",\n    \"description\": \"High-performance laptop\",\n    \"price\":20000000,\n    \"category_id\": 1,\n    \"seller_id\":2,\n    \"file_path\":\"laptop.jpg\",\n    \"stock\":30,\n    \"status\":\"active\",\n    \"update_at\": \"2023-04-01T12:00:00Z\",\n    \"created_at\": \"2023-04-01T12:00:00Z\"\n}\n"
+						},
+						"url": {
+							"raw": "{{base_url}}/products/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tambahkan Product Baru",
+					"id": "50948386-f6e320fd-ef52-43ea-b0bd-61cc7816dc12",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "7|sFeuV07NzFMUH8TxiOnNzXt0ykvRTrMLEtr6WqkI61b95c5b",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Laptop Gaming\",\n    \"description\": \"High-performance laptop\",\n    \"price\":20000000,\n    \"category_id\": 1,\n    \"seller_id\":2,\n    \"file_path\":\"laptop.jpg\",\n    \"stock\":30,\n    \"status\":\"active\",\n    \"update_at\": \"2023-04-01T12:00:00Z\",\n    \"created_at\": \"2023-04-01T12:00:00Z\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Data Product (Hanya Seller)",
+					"id": "50948386-beee2815-3094-46e5-80b7-39d36e8eb495",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "7|sFeuV07NzFMUH8TxiOnNzXt0ykvRTrMLEtr6WqkI61b95c5b",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Laptop Gaming ROG Update\",\n    \"price\": 25000000,\n    \"stock\": 25,\n    \"description\": \"ROG Laptop gaming series, high performance, latest technology\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/products/3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Menghapus Data Product (Hanya Seller)",
+					"id": "50948386-33a56953-9a1a-4a5b-8db0-50f4a62abaaf",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Handphone\",\n    \"description\": \"High-performance handphone with advanced features\",\n    \"price\": 15000000,\n    \"category_id\": 1,\n    \"seller_id\":1,\n    \"file_path\":\"handphone.jpg\",\n    \"stock\":10\n}\n"
+						},
+						"url": {
+							"raw": "{{base_url}}/products/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "50948386-1b54ad81-e84a-4b8d-97f1-30e804bd7647"
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Tambahkan Kategori Product",
+					"id": "50948386-9a88ed4e-e1e7-4b0a-9549-bbab4105ceca",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Makanan Ringan\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/categories",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tampilkan Semua Kategori Product",
+					"id": "50948386-5a3a6c94-e499-42a9-8908-21063ec64987",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Elektronik\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/categories",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tampilkan detail katagori yang dipilih",
+					"id": "50948386-afd6297e-b7b9-4699-a5ce-498b415fdf67",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/categories/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Kategori Product",
+					"id": "50948386-c96bdca9-0130-4040-9027-f6fa1953f1df",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Peralatan Rumah Tangga\",\n    \"description\": \"Kategori peralatan rumah tangga yang berisi berbagai barang yang digunakan dalam kehidupan sehari-hari.\",\n    \"icon\": \"home-tools.png\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/categories/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Menghapus Kategori Product",
+					"id": "50948386-648869fc-3d6d-4b86-9f88-ee881fb6273e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Peralatan Rumah Tangga\",\n    \"description\": \"Kategori peralatan rumah tangga yang berisi berbagai barang yang digunakan dalam kehidupan sehari-hari.\",\n    \"icon\": \"home-tools.png\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/categories/3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "50948386-18d3d143-07b2-4f4a-8e81-1c04807324cb"
+		}
+	]
+}
